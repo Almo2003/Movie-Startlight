@@ -1,11 +1,10 @@
 <template>
     <div class="filters-container">
-          <ion-button @click="filterByCategory('now_playing')">Cartelera</ion-button>
-          <ion-button @click="filterByCategory('top_rated')">Mejor Calificadas</ion-button>
-          <ion-button @click="filterByCategory('popular')">Populares</ion-button>
+          <ion-button class="secundary" @click="filterByCategory('now_playing')">Cartelera</ion-button>
+          <ion-button class="secundary" @click="filterByCategory('top_rated')">Mejor Calificadas</ion-button>
+          <ion-button class="secundary" @click="filterByCategory('popular')">Populares</ion-button>
     </div>
-  </template>
-  
+  </template> 
   <script lang="ts">
   import { defineComponent } from 'vue';
   import { IonButton } from '@ionic/vue';
@@ -36,19 +35,25 @@
   }
   
   
-  ion-button {
+  ion-button{
     max-width: 150px; 
     flex: 1 1 auto; /* Flex-grow, flex-shrink, flex-basis */
     margin: 0.5rem; /* Margen entre los botones */
     color: white; /* Color del texto */
     background-color: black;
+    background: #000;
     --border-radius: 20px; /* Bordes redondeados del botón */
     --padding-start: 1.75rem; /* Padding izquierdo */
     --padding-end: 1.75rem; /* Padding derecho */
+
   }
-  :host(.button-solid) {
-      --background: var(--ion-color-secundary, #0000);
-      --color: var(--ion-color-primary-contrast, #fff);
+  .button-solid {
+    --background: #000;
+    --color: var(--ion-color-primary-contrast, #fff);
+    border-radius: 50%;
+  }
+  .button-solid:hover{
+    box-shadow: 0 4px 15px rgb(249, 252, 249);
   }
   
   </style>

@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Peliculas YUAUGA</ion-title>
+        <ion-title>Movie Startlight</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
