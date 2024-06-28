@@ -1,56 +1,99 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
+    <ion-header>
       <ion-toolbar>
-        <ion-title>Blank</ion-title>
+        <ion-title>Peliculas YUAUGA</ion-title>
       </ion-toolbar>
     </ion-header>
-
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Blank</ion-title>
-        </ion-toolbar>
-      </ion-header>
-
-      <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <ion-content>
+      <div class="genres-grid">
+        <GenreCard v-for="genre in genres" :key="genre.id" :genre="genre" @select-genre="filterByGenre" />
       </div>
+      <FilterButtons @filter-category="filterByCategory" />
     </ion-content>
   </ion-page>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
+import { defineComponent, ref, onMounted } from 'vue';
+import api from '@/services/api';
+import GenreCard from '@/components/GenreCard.vue';
+import FilterButtons from '@/components/FilterButtons.vue';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+
+export default defineComponent({
+  components: {
+    GenreCard,
+    FilterButtons,
+    IonPage,
+    IonHeader,
+    IonToolbar,
+    IonContent,
+    IonTitle
+  },
+  setup() {
+    const genres = ref<any[]>([]);
+
+    onMounted(async () => {
+      genres.value = await api.getGenres();
+    });
+
+    const filterByGenre = (id: number) => {
+      window.location.href = `/movies?filter=genre&id=${id}`;
+    };
+
+    const filterByCategory = (category: string) => {
+      window.location.href = `/movies?filter=${category}`;
+    };
+
+    return {
+      genres,
+      filterByGenre,
+      filterByCategory
+    };
+  }
+});
 </script>
 
 <style scoped>
-#container {
+.genres-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.genres-grid::after {
+  content: '';
+  flex-grow: 999999999;
+  min-width: 150px;
+  height: 0;
+}
+
+.ion-page {
+  --background: #f9f9f9;
+}
+
+ion-toolbar {
+  --background: orange;
+  --color: white;
+}
+
+ion-title {
   text-align: center;
-  
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.genres-grid {
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  
-  color: #8c8c8c;
-  
-  margin: 0;
+.genres-grid > * {
+  transition: transform 0.2s;
 }
 
-#container a {
-  text-decoration: none;
+.genres-grid > *:hover {
+  transform: scale(1.05);
 }
+
 </style>
