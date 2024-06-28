@@ -1,0 +1,7 @@
+{
+  "name": "Peliculas-YuAuGa",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
