@@ -5,7 +5,7 @@
           <ion-buttons slot="start">
             <GoHomeButton />
           </ion-buttons>
-          <ion-title class="title">DETALLES</ion-title>
+          <ion-title class="title">Detalles</ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-content v-if="movie">
